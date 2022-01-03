@@ -14,9 +14,9 @@ define(function () {
          switch (type) {
             case this.article    : return '文章';
             case this.english    : return '英文';
-            case this.character  : return '单字';
-            case this.word       : return '单词';
-            case this.customize  : return '自定义';
+            case this.character  : return '單字';
+            case this.word       : return '單詞';
+            case this.customize  : return '自定義';
             default:break;
          }
       }
