@@ -225,6 +225,51 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
+      nextChapter100() {
+         if (this.config.chapter !== this.config.chapterTotal) {
+            if (this.config.articleType === ArticleType.word) {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)); // 截取当前需要显示的数组段
+               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+                  return item.word
+               }); // 取到英文，数组
+               this.currentWords = arrayCurrentWord.join(' ');
+            } else {
+               this.currentWords = this.currentOriginWords.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)).join('');
+            }
+            this.config.repeatCountCurrent = 1;
+            this.config.chapter=this.config.chapter+100;
+            this.reset();
+            this.config.save();
+         } else {
+            console.log('retch chapter bottom')
+            let chapterBtn = $('#totalChapter');
+            Utility.shakeDom(chapterBtn)
+         }
+      }
+
+      prevChapter100() {
+         if (this.config.chapter !== 1) {
+            if (this.config.articleType === ArticleType.word) {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)); // 截取当前需要显示的数组段
+               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+                  return item.word
+               }); // 取到英文，数组
+               this.currentWords = arrayCurrentWord.join(' ');
+            } else {
+               this.currentWords = this.currentOriginWords.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)).join('');
+            }
+            this.config.repeatCountCurrent = 1;
+            this.config.chapter=this.config.chapter-100;
+            this.reset();
+            this.config.save();
+         } else {
+            console.log('retch chapter top')
+            let chapterBtn = $('#totalChapter');
+            Utility.shakeDom(chapterBtn)
+         }
+      }
+
+
       // 自定义文章
       customizeArticle(){
          $('#app').style.overflow = 'hidden'
